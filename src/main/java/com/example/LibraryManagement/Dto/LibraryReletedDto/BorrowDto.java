@@ -1,4 +1,4 @@
-package com.example.LibraryManagement.Dto;
+package com.example.LibraryManagement.Dto.LibraryReletedDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
-    private String name;
+public class BorrowDto{
+
+    private Long userId;
+
+    private Long bookId;
+
 }

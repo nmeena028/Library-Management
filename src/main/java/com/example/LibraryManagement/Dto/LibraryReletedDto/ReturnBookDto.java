@@ -1,4 +1,4 @@
-package com.example.LibraryManagement.Dto;
+package com.example.LibraryManagement.Dto.LibraryReletedDto;
 
 import lombok.Getter;
 import lombok.Setter;

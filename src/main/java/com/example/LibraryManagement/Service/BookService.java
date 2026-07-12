@@ -1,6 +1,6 @@
 package com.example.LibraryManagement.Service;
 
-import com.example.LibraryManagement.Dto.BookDto;
+import com.example.LibraryManagement.Dto.LibraryReletedDto.BookDto;
 import com.example.LibraryManagement.Entity.Author;
 import com.example.LibraryManagement.Entity.Book;
 import com.example.LibraryManagement.Entity.Category;

@@ -1,4 +1,4 @@
-package com.example.LibraryManagement.Dto;
+package com.example.LibraryManagement.Dto.LibraryReletedDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BorrowDto{
-
-    private Long customerId;
-
-    private Long bookId;
-
+public class CategoryDto {
+    private String name;
 }

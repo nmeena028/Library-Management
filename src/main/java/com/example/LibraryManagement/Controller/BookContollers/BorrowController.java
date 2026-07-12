@@ -1,7 +1,7 @@
-package com.example.LibraryManagement.Controller;
+package com.example.LibraryManagement.Controller.BookContollers;
 
-import com.example.LibraryManagement.Dto.BorrowDto;
-import com.example.LibraryManagement.Dto.ReturnBookDto;
+import com.example.LibraryManagement.Dto.LibraryReletedDto.BorrowDto;
+import com.example.LibraryManagement.Dto.LibraryReletedDto.ReturnBookDto;
 import com.example.LibraryManagement.Entity.Borrow;
 import com.example.LibraryManagement.Service.BorrowService;
 import lombok.AllArgsConstructor;

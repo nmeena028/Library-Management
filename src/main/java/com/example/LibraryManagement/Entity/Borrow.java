@@ -2,7 +2,6 @@ package com.example.LibraryManagement.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,9 +27,9 @@ public class Borrow {
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"borrows"})
-    private Customer customer;
+    private User user;
 
     private LocalDate issueDate;
 

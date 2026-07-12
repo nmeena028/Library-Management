@@ -1,13 +1,13 @@
 package com.example.LibraryManagement.Service;
 
-import com.example.LibraryManagement.Dto.BorrowDto;
-import com.example.LibraryManagement.Dto.ReturnBookDto;
+import com.example.LibraryManagement.Dto.LibraryReletedDto.BorrowDto;
+import com.example.LibraryManagement.Dto.LibraryReletedDto.ReturnBookDto;
 import com.example.LibraryManagement.Entity.Book;
 import com.example.LibraryManagement.Entity.Borrow;
-import com.example.LibraryManagement.Entity.Customer;
+import com.example.LibraryManagement.Entity.User;
 import com.example.LibraryManagement.Repo.BookRepo;
 import com.example.LibraryManagement.Repo.BorrowRepo;
-import com.example.LibraryManagement.Repo.CustomerRepo;
+import com.example.LibraryManagement.Repo.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class BorrowService {
 
     private final BorrowRepo borrowRepo;
     private final BookRepo bookRepo;
-    private final CustomerRepo customerRepo;
+    private final UserRepo userRepo;
 
     public List<Borrow> findAll() {
         return borrowRepo.findAll();
@@ -29,11 +29,11 @@ public class BorrowService {
     public void addBorrow(BorrowDto borrowDto) {
 
         Book book = bookRepo.findById(borrowDto.getBookId()).orElseThrow();
-        Customer customer = customerRepo.findById(borrowDto.getCustomerId()).orElseThrow();
+        User user = userRepo.findById(borrowDto.getUserId()).orElseThrow();
 
         // NEW RULE: duplicate borrow check
-        if (borrowRepo.existsByBookAndCustomerAndReturnedFalse(book, customer)) {
-            throw new RuntimeException("Customer already borrowed this book and not returned yet");
+        if (borrowRepo.existsByBookAndUserAndReturnedFalse(book, user)) {
+            throw new RuntimeException("User already borrowed this book and not returned yet");
         }
         if (book.getAvailableCopies() <= 0) {
             throw new RuntimeException("Book is not available");
@@ -41,7 +41,7 @@ public class BorrowService {
 
         Borrow borrow = new Borrow();
         borrow.setBook(book);
-        borrow.setCustomer(customer);
+        borrow.setUser(user);
         borrow.setIssueDate(LocalDate.now());
         borrow.setReturned(false);
 

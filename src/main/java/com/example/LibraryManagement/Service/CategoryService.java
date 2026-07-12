@@ -1,6 +1,6 @@
 package com.example.LibraryManagement.Service;
 
-import com.example.LibraryManagement.Dto.CategoryDto;
+import com.example.LibraryManagement.Dto.LibraryReletedDto.CategoryDto;
 import com.example.LibraryManagement.Entity.Category;
 import com.example.LibraryManagement.Repo.CategoryRepo;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
-package com.example.LibraryManagement.Controller;
+package com.example.LibraryManagement.Controller.BookContollers;
 
-import com.example.LibraryManagement.Dto.CategoryDto;
+import com.example.LibraryManagement.Dto.LibraryReletedDto.CategoryDto;
 import com.example.LibraryManagement.Entity.Category;
 import com.example.LibraryManagement.Service.CategoryService;
 import lombok.AllArgsConstructor;

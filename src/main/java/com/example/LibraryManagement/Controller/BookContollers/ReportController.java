@@ -1,4 +1,4 @@
-package com.example.LibraryManagement.Controller;
+package com.example.LibraryManagement.Controller.BookContollers;
 
 import com.example.LibraryManagement.Entity.Book;
 import com.example.LibraryManagement.Entity.Borrow;

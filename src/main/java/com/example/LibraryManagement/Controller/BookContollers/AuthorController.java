@@ -1,4 +1,4 @@
-package com.example.LibraryManagement.Controller;
+package com.example.LibraryManagement.Controller.BookContollers;
 
 import com.example.LibraryManagement.Entity.Author;
 import com.example.LibraryManagement.Entity.Book;
@@ -18,7 +18,7 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @GetMapping()
-    public ResponseEntity<List<Author>> getAllCategory(){
+    public ResponseEntity<List<Author>> getAllAuthor(){
         return ResponseEntity.status(HttpStatus.OK).body(authorService.findAll());
     }
 

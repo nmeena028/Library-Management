@@ -26,4 +26,7 @@ public class Author {
     @OneToMany(mappedBy="author")
     @JsonIgnore
     private List<Book> books;
+
+//    @Enumerated(EnumType.STRING)
+//    private Roles role;
 }
