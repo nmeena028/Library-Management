@@ -4,6 +4,7 @@ package com.example.LibraryManagement.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,9 @@ public class Book {
 
     @Column(nullable = false)
     private String bookName;
+
+    @NotBlank
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

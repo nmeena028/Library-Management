@@ -27,6 +27,4 @@ public class Author {
     @JsonIgnore
     private List<Book> books;
 
-//    @Enumerated(EnumType.STRING)
-//    private Roles role;
 }

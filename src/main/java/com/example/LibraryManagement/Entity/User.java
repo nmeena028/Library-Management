@@ -2,6 +2,8 @@ package com.example.LibraryManagement.Entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,11 +31,17 @@ public class User implements UserDetails {
     @Column(nullable = false,unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Size(min = 10 ,max =10)
+    private String mobileNumber;
+
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Roles role;
+
+    private String provider;
+
+    private String providerId;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

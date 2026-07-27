@@ -1,6 +1,7 @@
 package com.example.LibraryManagement.Service;
 
-import com.example.LibraryManagement.Dto.LibraryReletedDto.BorrowDto;
+import com.example.LibraryManagement.Dto.LibraryReletedDto.Borrow.BorrowResponseDto;
+import com.example.LibraryManagement.Dto.LibraryReletedDto.Borrow.BorrowRequestDto;
 import com.example.LibraryManagement.Dto.LibraryReletedDto.ReturnBookDto;
 import com.example.LibraryManagement.Entity.Book;
 import com.example.LibraryManagement.Entity.Borrow;
@@ -9,9 +10,14 @@ import com.example.LibraryManagement.Repo.BookRepo;
 import com.example.LibraryManagement.Repo.BorrowRepo;
 import com.example.LibraryManagement.Repo.UserRepo;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,11 +28,30 @@ public class BorrowService {
     private final BookRepo bookRepo;
     private final UserRepo userRepo;
 
-    public List<Borrow> findAll() {
-        return borrowRepo.findAll();
+    public Page<BorrowResponseDto> findAll(int page, int size, String sortBy, String direction) {
+
+        Sort sort = direction.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable= PageRequest.of(page,size,sort);
+
+
+        Page<Borrow> borrowList= borrowRepo.findAll(pageable);
+
+        return borrowList.map((borrow) -> new BorrowResponseDto(
+                borrow.getId(),
+                borrow.getBook().getBookName(),
+                borrow.getUser().getName(),
+                borrow.getUser().getEmail(),
+                borrow.getUser().getMobileNumber(),
+                borrow.getIssueDate(),
+                borrow.getReturnDate(),
+                borrow.isReturned())
+        );
     }
 
-    public void addBorrow(BorrowDto borrowDto) {
+    public void addBorrow(BorrowRequestDto borrowDto) {
 
         Book book = bookRepo.findById(borrowDto.getBookId()).orElseThrow();
         User user = userRepo.findById(borrowDto.getUserId()).orElseThrow();
@@ -49,13 +74,16 @@ public class BorrowService {
 
         bookRepo.save(book);
         borrowRepo.save(borrow);
+
     }
 
     public String returnBook(ReturnBookDto returnBookDto) {
       Borrow borrow=borrowRepo.findById(returnBookDto.getBorrowId()).orElseThrow();
+
         if (borrow.isReturned()) {
             throw new RuntimeException("Book already returned");
         }
+
       Book book=borrow.getBook();
       book.setAvailableCopies(book.getAvailableCopies()+1);
       borrow.setReturnDate(LocalDate.now());

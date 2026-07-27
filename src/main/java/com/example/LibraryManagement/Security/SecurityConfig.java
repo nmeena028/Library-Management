@@ -1,6 +1,8 @@
 package com.example.LibraryManagement.Security;
 
 
+import com.example.LibraryManagement.OAuth2.GoogleOidcUserService;
+import com.example.LibraryManagement.OAuth2.OAuth2SuccessHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,11 +19,18 @@ public class SecurityConfig {
 
     private final JwtSecurityFilterChain jwtSecurityFilterChain;
 
+    private final OAuth2SuccessHandler oauth2SuccessHandler;
+
+    private  final GoogleOidcUserService customOidcUserService;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity https){
         return https.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/oauth2/**",
+                                        "/login/**"
+                                ).permitAll()
                         // ==========================
                         //  Books role
                         // ==========================
@@ -67,6 +76,21 @@ public class SecurityConfig {
                         //  Everything Else
                         // ==========================
                         .anyRequest().authenticated()
+                )
+                .oauth2Login(oauth -> oauth
+
+                        .userInfoEndpoint(user ->
+
+                                user.oidcUserService(
+                                        customOidcUserService
+                                )
+
+                        )
+
+                        .successHandler(
+                                oauth2SuccessHandler
+                        )
+
                 )
                 .addFilterBefore(
                          jwtSecurityFilterChain, UsernamePasswordAuthenticationFilter.class

@@ -1,4 +1,4 @@
-package com.example.LibraryManagement.Dto.LibraryReletedDto;
+package com.example.LibraryManagement.Dto.LibraryReletedDto.Book;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookDto {
+public class BookRequestDto {
 
     private String bookName;
+
+    private String imageUrl;
 
     private Long categoryId;
 

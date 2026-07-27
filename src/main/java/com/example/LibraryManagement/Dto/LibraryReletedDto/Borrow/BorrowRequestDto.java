@@ -1,4 +1,4 @@
-package com.example.LibraryManagement.Dto.LibraryReletedDto;
+package com.example.LibraryManagement.Dto.LibraryReletedDto.Borrow;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BorrowDto{
+public class BorrowRequestDto{
 
     private Long userId;
 
