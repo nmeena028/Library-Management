@@ -18,4 +18,5 @@ public interface BorrowRepo extends JpaRepository<Borrow,Long> {
 
     Page<Borrow> findByReturnedFalse(Pageable pageable);
 
+    Long countByReturnedFalse();
 }

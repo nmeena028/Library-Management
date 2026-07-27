@@ -16,4 +16,6 @@ public interface BookRepo extends JpaRepository<Book,Long> {
     Page<Book> findByCategory(Category category, Pageable pageable);
 
     Page<Book> findByAuthorId(Long id, Pageable pageable);
+
+    Long countByAvailableCopiesGreaterThan(int i);
 }

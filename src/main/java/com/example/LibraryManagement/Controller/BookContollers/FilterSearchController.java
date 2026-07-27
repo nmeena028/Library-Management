@@ -25,7 +25,6 @@ public class FilterSearchController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "bookName") String sortBy,
             @RequestParam(defaultValue = "asc") String direction){
-
         return ResponseEntity.status(HttpStatus.OK).body(filterSearchService.findAllBooks(cname, page, size, sortBy, direction));
 
     }
