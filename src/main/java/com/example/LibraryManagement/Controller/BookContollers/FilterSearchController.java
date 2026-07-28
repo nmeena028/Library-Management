@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("Books")
+@RequestMapping("book")
 @AllArgsConstructor
 public class FilterSearchController {
 
@@ -28,4 +28,6 @@ public class FilterSearchController {
         return ResponseEntity.status(HttpStatus.OK).body(filterSearchService.findAllBooks(cname, page, size, sortBy, direction));
 
     }
+
+
 }

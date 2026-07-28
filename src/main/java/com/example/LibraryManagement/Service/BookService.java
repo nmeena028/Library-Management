@@ -10,6 +10,7 @@ import com.example.LibraryManagement.Repo.BookRepo;
 import com.example.LibraryManagement.Repo.BorrowRepo;
 import com.example.LibraryManagement.Repo.CategoryRepo;
 import lombok.AllArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +39,7 @@ public class BookService {
         Page<Book> bookList= bookRepo.findAll(pageable);
 
         return bookList.map((book)-> new BookResponseDto(
+                book.getId(),
                 book.getBookName(),
                 book.getImageUrl(),
                 book.getCategory().getName(),
@@ -81,6 +83,7 @@ public class BookService {
        bookRepo.save(book1);
 
        return  new BookResponseDto(
+               book1.getId(),
                book1.getBookName(),
                book1.getImageUrl(),
                book1.getCategory().getName(),
@@ -106,5 +109,43 @@ public class BookService {
         book.setTotalCopies(book.getTotalCopies()+copies);
         book.setAvailableCopies(book.getAvailableCopies()+copies);
         bookRepo.save(book);
+    }
+
+    public BookResponseDto getById(Long id) {
+        Book book1= bookRepo.findById(id).orElseThrow(()->new RuntimeException("Book  id is Wrong"));
+
+        return new BookResponseDto(
+                book1.getId(),
+                book1.getBookName(),
+                book1.getImageUrl(),
+                book1.getCategory().getName(),
+                book1.getAuthor().getName(),
+                book1.getTotalCopies(),
+                book1.getAvailableCopies());
+    }
+
+    public Page<BookResponseDto> searchBook(
+            String keyword,
+            int page,
+            int size,
+            String sortBy,
+            String direction
+    ){
+        Sort sort = direction.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page,size,sort);
+
+        return bookRepo
+                .findByBookNameContainingIgnoreCase(keyword,pageable)
+                .map((book)-> new BookResponseDto(
+                        book.getId(),
+                        book.getBookName(),
+                        book.getImageUrl(),
+                        book.getCategory().getName(),
+                        book.getAuthor().getName(),
+                        book.getTotalCopies(),
+                        book.getAvailableCopies()));
     }
 }

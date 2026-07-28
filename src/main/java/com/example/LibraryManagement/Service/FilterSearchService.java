@@ -40,6 +40,7 @@ public class FilterSearchService {
         Page<Book> bookPage = bookRepo.findByCategory(category, pageable);
 
         return bookPage.map(book -> new BookResponseDto(
+                book.getId(),
                 book.getBookName(),
                 book.getImageUrl(),
                 book.getCategory().getName(),

@@ -58,6 +58,7 @@ public class ReportService{
         Page<Book> bookList = bookRepo.findByAvailableCopiesGreaterThan(0,pageable);
 
         return bookList.map((book)-> new BookResponseDto(
+                book.getId(),
                 book.getBookName(),
                 book.getImageUrl(),
                 book.getCategory().getName(),

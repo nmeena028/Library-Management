@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DashBoardResponseDto {
 
-    private Long TotalBooks;
+    private Long totalBooks;
     private Long availableBooks;
     private Long borrowedBooks;
     private Long totalUsers;

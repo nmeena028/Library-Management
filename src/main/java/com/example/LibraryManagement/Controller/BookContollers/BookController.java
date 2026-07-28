@@ -30,16 +30,22 @@ public class BookController {
     }
 
 
+
+
     @PostMapping()
     public ResponseEntity<String> AddBook(@RequestBody BookRequestDto book){
 
         return ResponseEntity.status(HttpStatus.OK).body(bookService.addBook(book));
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<BookResponseDto> getById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.getById(id));
+
+    }
 
     @PutMapping("{id}")
     public ResponseEntity<BookResponseDto> update_Book(@PathVariable Long id ,@RequestBody BookRequestDto book){
-        bookService.updateBook(book,id);
         return ResponseEntity.status(HttpStatus.OK).body(bookService.updateBook(book,id));
 
     }
@@ -56,5 +62,19 @@ public class BookController {
     public ResponseEntity<String> addCopies(@PathVariable Long id, @RequestParam int copies) {
         bookService.addCopies(id, copies);
         return ResponseEntity.ok("Copies increased successfully");
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<BookResponseDto>> searchBook(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "bookName") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ){
+
+        return ResponseEntity.ok(
+                bookService.searchBook(keyword,page,size,sortBy,direction)
+        );
     }
 }

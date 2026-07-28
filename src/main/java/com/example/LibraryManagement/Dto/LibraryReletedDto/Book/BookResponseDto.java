@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BookResponseDto {
 
+    private Long id;
+
     private String bookName;
 
     private String imageUrl;

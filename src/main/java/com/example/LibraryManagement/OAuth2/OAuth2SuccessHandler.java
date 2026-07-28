@@ -53,20 +53,7 @@ public class OAuth2SuccessHandler
                 jwtUtil.generateToken(user);
 
 
-        response.setContentType("application/json");
-
-
-        response.getWriter()
-                .write(
-                        """
-                        {
-                          "message":"OAuth2 Login Successful",
-                          "email":"%s",
-                          "token":"%s"
-                        }
-                        """
-                                .formatted(oidcUser.getEmail(),jwt)
-                );
+        response.sendRedirect("http://localhost:5173/login?token=" + jwt);
 
 
     }

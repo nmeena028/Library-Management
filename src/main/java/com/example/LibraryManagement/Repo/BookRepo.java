@@ -18,4 +18,9 @@ public interface BookRepo extends JpaRepository<Book,Long> {
     Page<Book> findByAuthorId(Long id, Pageable pageable);
 
     Long countByAvailableCopiesGreaterThan(int i);
+
+    Page<Book> findByBookNameContainingIgnoreCase(
+            String keyword,
+            Pageable pageable
+    );
 }

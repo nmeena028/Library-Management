@@ -54,6 +54,7 @@ public class AuthorService {
         Page<Book> bookPage = bookRepo.findByAuthorId(id,pageable);
 
         return bookPage.map(book -> new BookResponseDto(
+                book.getId(),
                 book.getBookName(),
                 book.getImageUrl(),
                 book.getCategory().getName(),
